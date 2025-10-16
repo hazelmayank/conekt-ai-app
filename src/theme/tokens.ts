@@ -1,0 +1,113 @@
+export const tokens = {
+  colors: {
+    brand: {
+      primary: '#49DE72',
+      primary700: '#2FC35A',
+      primaryOutline: '#B9F3CE',
+      secondary: '#2FADFF',
+    },
+    surface: {
+      bg: '#F6F9F7',
+      white: '#FFFFFF',
+      card: '#FFFFFF',
+      mapTint: '#E9F5EE',
+    },
+    text: {
+      primary: '#0E1A0F',
+      secondary: '#3A4C3E',
+      muted: '#6D7E72',
+    },
+    accent: {
+      online: '#36D39A',
+      offline: '#FF5A5A',
+      warning: '#FFC042',
+    },
+    stroke: {
+      soft: '#DCE8DF',
+      strong: '#B8CABA',
+    },
+    toggle: {
+      trackOn: '#E4F9EA',
+      trackOff: '#F1F3F2',
+      thumbOn: '#49DE72',
+      thumbOff: '#D35A5A',
+    },
+    map: {
+      route: '#3DDC84',
+      routeShadow: '#AEEBC6',
+      vehicle: '#E53935',
+      vehicleHalo: '#B6EFC6',
+      geoFence: '#3DDC84',
+    },
+    chip: {
+      bg: '#DDF7E6',
+    },
+  },
+  radius: {
+    xs: 6,
+    sm: 10,
+    md: 14,
+    lg: 18,
+    xl: 22,
+    '2xl': 28,
+    pill: 999,
+  },
+  elevation: {
+    sheet: {
+      shadowColor: '#000',
+      shadowOpacity: 0.12,
+      shadowRadius: 20,
+      elevation: 14,
+    },
+    card: {
+      shadowColor: '#000',
+      shadowOpacity: 0.08,
+      shadowRadius: 12,
+      elevation: 8,
+    },
+    fab: {
+      shadowColor: '#000',
+      shadowOpacity: 0.18,
+      shadowRadius: 18,
+      elevation: 16,
+    },
+  },
+  spacing: {
+    0: 0,
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16,
+    5: 20,
+    6: 24,
+    7: 28,
+    8: 32,
+    10: 40,
+    12: 48,
+    14: 56,
+    16: 64,
+  },
+  typography: {
+    fontFamily: ['SF Pro Display', 'Inter', 'System'],
+    weights: {
+      regular: '400' as const,
+      medium: '500' as const,
+      semibold: '600' as const,
+      bold: '700' as const,
+    },
+    sizes: {
+      xs: 12,
+      sm: 14,
+      md: 16,
+      lg: 18,
+      xl: 22,
+      '2xl': 28,
+    },
+    lineHeights: {
+      tight: 1.1,
+      snug: 1.2,
+      normal: 1.35,
+      relaxed: 1.5,
+    },
+  },
+};
