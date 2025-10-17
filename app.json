@@ -14,9 +14,6 @@
     },
     "ios": {
       "supportsTablet": true,
-      "config": {
-        "googleMapsApiKey": "$GOOGLE_MAPS_API_KEY_IOS"
-      },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses your location to show truck positions on the map."
       }
@@ -30,12 +27,14 @@
       "predictiveBackGestureEnabled": false,
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ],
-      "package": "com.mayank765181.conektMobileApp",
+      "package": "com.conektai.conektMobileApp",
       "config": {
         "googleMaps": {
-          "apiKey": "$GOOGLE_MAPS_API_KEY_ANDROID"
+          "apiKey": "AIzaSyDpsB3ZGhYmNC2AWotX34Tp87xotnO_ia8"
         }
       }
     },
@@ -51,11 +50,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
     "extra": {
       "eas": {
-        "projectId": "ddecda52-9c70-46e4-9085-065581823ba9"
+        "projectId": "76bb0c19-f6b1-4271-a12b-4ce01ce849ee"
       }
     },
-    "owner": "mayank765181"
+    "owner": "conektai"
   }
 }

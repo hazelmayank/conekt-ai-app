@@ -1,8 +1,6 @@
-import { API_BASE_URL } from '@env';
-
 // API Configuration
 export const API_CONFIG = {
-  BASE_URL: API_BASE_URL || 'https://conekt-v2-backend.onrender.com',
+  BASE_URL: 'https://conekt-v2-backend.onrender.com',
   TIMEOUT: 10000,
   HEADERS: {
     'Content-Type': 'application/json',

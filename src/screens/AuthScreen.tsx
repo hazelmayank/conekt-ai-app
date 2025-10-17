@@ -304,7 +304,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess }) => {
             };
             
             // Use the provided JWT token for demo users
-            const demoJWTToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGU2NzFmNTZhNGY1NjQyYzNlM2M4MjMiLCJpYXQiOjE3NjAwMjMwNDAsImV4cCI6MTc2MDYyNzg0MH0.qFX2OMeFZWFzSwxpLbPmB9e4mHIdUOXCmxG_QKxtFXw';
+            const demoJWTToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGU2NzFmNTZhNGY1NjQyYzNlM2M4MjMiLCJpYXQiOjE3NjA2OTIzNDMsImV4cCI6MTc2MzI4NDM0M30.PsmKtuDRlGLlWieiWVO4820Vp1XYBUAqax_PI4jpZyU';
             
             try {
               // Set the JWT token for demo users
