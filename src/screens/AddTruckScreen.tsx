@@ -3,18 +3,17 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
-  SafeAreaView,
-  SafeAreaProvider,
-  ActivityIndicator,
   Image,
+  TextInput,
+  ActivityIndicator,
 } from 'react-native';
-import { tokens } from '../theme/tokens';
-import { citiesService, trucksService } from '../services/services';
-import { City } from '../types/api';
-import { useTheme } from '../context/ThemeContext';
-import { useAlert } from '../context/AlertContext';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { tokens } from '@/theme/tokens';
+import { citiesService, trucksService } from '@/services/services';
+import { City } from '@/types/api';
+import { useTheme } from '@/context/ThemeContext';
+import { useAlert } from '@/context/AlertContext';
 
 interface AddTruckScreenProps {
   navigation?: any;
@@ -44,7 +43,7 @@ const AddTruckScreen: React.FC<AddTruckScreenProps> = ({ navigation }) => {
         });
       }
     })();
-  }, []);
+  }, [showAlert]);
 
   const handleSave = async () => {
     if (!selectedCityId || !registrationNumber || !route) {
@@ -99,16 +98,11 @@ const AddTruckScreen: React.FC<AddTruckScreenProps> = ({ navigation }) => {
     setDropdownVisible(false);
   };
 
-  const handleBack = () => {
-    navigation?.goBack();
-  };
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-        {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation?.goBack()}>
             <Image source={require('../../assets/ui/back_icon.png')} style={styles.backIcon} resizeMode="contain" />
           </TouchableOpacity>
           <Text style={[styles.title, { color: colors.text }]}>Add Truck</Text>
@@ -120,7 +114,7 @@ const AddTruckScreen: React.FC<AddTruckScreenProps> = ({ navigation }) => {
           <View style={styles.fieldGroup}>
             <View style={styles.labelContainer}>
               <Text style={[styles.label, { color: colors.text }]}>Registration Number</Text>
-              <Text style={styles.required}>*</Text>
+              <Text style={styles.requiredAsterisk}>*</Text>
             </View>
             <View style={[styles.inputField, { backgroundColor: colors.surface, borderColor: colors.border }]}>
               <TextInput
@@ -137,7 +131,7 @@ const AddTruckScreen: React.FC<AddTruckScreenProps> = ({ navigation }) => {
           <View style={styles.fieldGroup}>
             <View style={styles.labelContainer}>
               <Text style={[styles.label, { color: colors.text }]}>City</Text>
-              <Text style={styles.required}>*</Text>
+              <Text style={styles.requiredAsterisk}>*</Text>
             </View>
             <TouchableOpacity 
               style={[styles.dropdownContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}
@@ -156,34 +150,26 @@ const AddTruckScreen: React.FC<AddTruckScreenProps> = ({ navigation }) => {
             
             {/* Dropdown Menu */}
             {dropdownVisible && (
-              <>
-                {/* Backdrop */}
-                <TouchableOpacity 
-                  style={styles.dropdownBackdrop}
-                  onPress={() => setDropdownVisible(false)}
-                  activeOpacity={1}
-                />
-                <View style={[styles.dropdownMenu, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-                  {cities.map((city) => (
-                    <TouchableOpacity
-                      key={city._id}
-                      style={[
-                        styles.dropdownItem,
-                        selectedCityId === city._id && styles.dropdownItemSelected
-                      ]}
-                      onPress={() => handleCitySelect(city)}
-                    >
-                      <Text style={[
-                        styles.dropdownItemText,
-                        { color: colors.text },
-                        selectedCityId === city._id && styles.dropdownItemTextSelected
-                      ]}>
-                        {city.name}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </>
+              <View style={[styles.dropdownMenu, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+                {cities.map((city) => (
+                  <TouchableOpacity
+                    key={city._id}
+                    style={[
+                      styles.dropdownItem,
+                      selectedCityId === city._id && styles.dropdownItemSelected
+                    ]}
+                    onPress={() => handleCitySelect(city)}
+                  >
+                    <Text style={[
+                      styles.dropdownItemText,
+                      { color: colors.text },
+                      selectedCityId === city._id && styles.dropdownItemTextSelected
+                    ]}>
+                      {city.name}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
             )}
           </View>
 
@@ -191,7 +177,7 @@ const AddTruckScreen: React.FC<AddTruckScreenProps> = ({ navigation }) => {
           <View style={styles.fieldGroup}>
             <View style={styles.labelContainer}>
               <Text style={[styles.label, { color: colors.text }]}>Route</Text>
-              <Text style={styles.required}>*</Text>
+              <Text style={styles.requiredAsterisk}>*</Text>
             </View>
             <View style={[styles.inputField, { backgroundColor: colors.surface, borderColor: colors.border }]}>
               <TextInput
@@ -220,9 +206,9 @@ const AddTruckScreen: React.FC<AddTruckScreenProps> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FB',
+  container: { 
+    flex: 1, 
+    backgroundColor: '#F8F9FB' 
   },
   header: {
     flexDirection: 'row',
@@ -240,9 +226,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: tokens.spacing[3],
   },
-  backIcon: {
-    width: 24,
-    height: 24,
+  backIcon: { 
+    width: 24, 
+    height: 24 
   },
   title: {
     fontSize: 20,
@@ -258,20 +244,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: tokens.spacing[4],
     paddingTop: tokens.spacing[6],
   },
-  fieldGroup: {
-    marginBottom: tokens.spacing[8],
+  fieldGroup: { 
+    marginBottom: tokens.spacing[8] 
   },
-  labelContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: tokens.spacing[2],
+  labelContainer: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginBottom: tokens.spacing[2] 
   },
-  label: {
-    fontSize: 16,
-    fontFamily: 'Poppins_400Regular',
-    color: '#083400',
+  label: { 
+    fontSize: 16, 
+    fontFamily: 'Poppins_400Regular', 
+    color: '#083400' 
   },
-  required: {
+  requiredAsterisk: {
     color: '#FF0000',
     fontSize: 16,
     marginLeft: tokens.spacing[1],
@@ -313,66 +299,71 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
     zIndex: 1000,
   },
   dropdownItem: {
-    paddingVertical: tokens.spacing[3],
-    paddingHorizontal: tokens.spacing[4],
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#E2E2E2',
+    minHeight: 48,
   },
   dropdownItemSelected: {
-    backgroundColor: '#F0F9E8',
+    backgroundColor: '#F0F8FF',
   },
   dropdownItemText: {
     fontSize: 16,
-    fontFamily: 'Poppins_600SemiBold',
+    fontFamily: 'Poppins_400Regular',
     color: '#083400',
+    flex: 1,
   },
   dropdownItemTextSelected: {
-    color: '#53C920',
+    fontFamily: 'Poppins_600SemiBold',
   },
+  // Input field styles
   inputField: {
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
     borderWidth: 1,
     borderColor: '#E2E2E2',
     height: 54,
-    justifyContent: 'center',
     paddingHorizontal: tokens.spacing[3],
+    justifyContent: 'center',
   },
   inputText: {
     fontSize: 16,
-    fontFamily: 'Poppins_600SemiBold',
+    fontFamily: 'Poppins_400Regular',
     color: '#083400',
   },
+  // Save button styles
   saveButtonContainer: {
     paddingHorizontal: tokens.spacing[4],
     paddingVertical: tokens.spacing[4],
-    backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
     borderTopColor: '#E2E2E2',
   },
   saveButton: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#53C920',
-    height: 52,
-    justifyContent: 'center',
+    backgroundColor: '#87EA5C',
+    borderRadius: tokens.radius.lg,
+    paddingVertical: tokens.spacing[4],
     alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#87EA5C',
   },
   saveButtonDisabled: {
-    opacity: 0.6,
+    backgroundColor: '#E2E2E2',
+    borderColor: '#E2E2E2',
   },
   saveButtonText: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Poppins_600SemiBold',
     color: '#083400',
   },
 });
 
-export { AddTruckScreen };
 export default AddTruckScreen;

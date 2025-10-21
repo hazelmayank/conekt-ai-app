@@ -9,8 +9,8 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { useTheme } from '../context/ThemeContext';
-import { tokens } from '../theme/tokens';
+import { useTheme } from '@/context/ThemeContext';
+import { tokens } from '@/theme/tokens';
 
 interface AlertButton {
   text: string;

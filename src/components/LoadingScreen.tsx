@@ -8,8 +8,8 @@ import {
   Dimensions,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { tokens } from '../theme/tokens';
-import { useTheme } from '../context/ThemeContext';
+import { tokens } from '@/theme/tokens';
+import { useTheme } from '@/context/ThemeContext';
 
 const { width, height } = Dimensions.get('window');
 

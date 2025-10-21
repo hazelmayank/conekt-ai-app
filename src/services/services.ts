@@ -1,7 +1,6 @@
 import { apiService } from './apiService';
 import { ApiResponse, City, Truck, Campaign, Video, Playlist, DashboardStats } from '../types/api';
 import { API_CONFIG } from '../types/api';
-import { mockData, mockResponses } from './mockData';
 import { citiesCache, trucksCache, campaignsCache, videosCache, generalCache } from './cacheService';
 
 class CitiesService {
@@ -14,14 +13,6 @@ class CitiesService {
       return cached;
     }
 
-    if (API_CONFIG.USE_MOCK_DATA) {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      const data = mockData.cities;
-      citiesCache.set(cacheKey, data);
-      return data;
-    }
-    
     const response = await apiService.request<{success: boolean, data: City[]}>('/admin/cities');
     const data = (response as any).data || [];
     citiesCache.set(cacheKey, data);
@@ -41,12 +32,6 @@ class TrucksService {
     gps_lat: number;
     gps_lng: number;
   }): Promise<Truck> {
-    if (API_CONFIG.USE_MOCK_DATA) {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      return mockResponses.createTruck(truckData) as Truck;
-    }
-    
     const response = await apiService.request<{success: boolean, message: string, data: Truck}>('/admin/trucks', {
       method: 'POST',
       body: JSON.stringify(truckData),
@@ -63,14 +48,6 @@ class TrucksService {
       return cached;
     }
 
-    if (API_CONFIG.USE_MOCK_DATA) {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      const data = mockResponses.getTrucksInCity(cityId) as Truck[];
-      trucksCache.set(cacheKey, data);
-      return data;
-    }
-    
     const response = await apiService.request<{success: boolean, data: Truck[]}>(`/admin/cities/${cityId}/trucks`);
     const data = (response as any).data || [];
     trucksCache.set(cacheKey, data);

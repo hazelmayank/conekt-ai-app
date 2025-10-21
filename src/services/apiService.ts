@@ -1,5 +1,4 @@
 import { API_CONFIG, ApiResponse, AuthResponse, User } from '../types/api';
-import { mockResponses } from './mockData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class ApiService {
@@ -44,7 +43,7 @@ class ApiService {
   }
 
   private getHeaders(): Record<string, string> {
-    const headers = { ...API_CONFIG.HEADERS };
+    const headers: Record<string, string> = { ...API_CONFIG.HEADERS };
     
     if (this.token) {
       headers['Authorization'] = `Bearer ${this.token}`;
@@ -128,12 +127,6 @@ class ApiService {
 
   // Authentication Methods
   async sendLoginOTP(phone: string): Promise<AuthResponse> {
-    if (API_CONFIG.USE_MOCK_DATA) {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      return mockResponses.sendLoginOTP();
-    }
-    
     return this.request<AuthResponse>('/admin/auth/login', {
       method: 'POST',
       body: JSON.stringify({ phone }),
@@ -141,20 +134,6 @@ class ApiService {
   }
 
   async verifyLoginOTP(phone: string, otp: string): Promise<AuthResponse> {
-    if (API_CONFIG.USE_MOCK_DATA) {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const response = mockResponses.verifyLoginOTP();
-      await this.saveToken(response.token!);
-      
-      // Store user data
-      if (response.user) {
-        await this.storeUser(response.user);
-      }
-      
-      return response;
-    }
-    
     const response = await this.request<AuthResponse>('/admin/auth/login/verify', {
       method: 'POST',
       body: JSON.stringify({ phone, otp }),
@@ -174,12 +153,6 @@ class ApiService {
   }
 
   async createAdmin(phone: string, name: string): Promise<AuthResponse> {
-    if (API_CONFIG.USE_MOCK_DATA) {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      return mockResponses.createAdmin();
-    }
-    
     return this.request<AuthResponse>('/admin/auth/create-admin', {
       method: 'POST',
       body: JSON.stringify({ phone, name }),
@@ -187,23 +160,6 @@ class ApiService {
   }
 
   async verifyAdminAccount(phone: string, otp: string): Promise<AuthResponse> {
-    if (API_CONFIG.USE_MOCK_DATA) {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const response = mockResponses.verifyAdminAccount();
-      // Store JWT token if available
-      if (response.token) {
-        await this.saveToken(response.token);
-      }
-      
-      // Store user data
-      if (response.user) {
-        await this.storeUser(response.user);
-      }
-      
-      return response;
-    }
-    
     const response = await this.request<AuthResponse>('/admin/auth/create-admin/verify', {
       method: 'POST',
       body: JSON.stringify({ phone, otp }),
